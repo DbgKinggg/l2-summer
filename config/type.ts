@@ -13,4 +13,5 @@ export type Chain = {
     background: string;
     text: string;
   };
+  icon: string;
 };
