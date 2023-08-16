@@ -1,4 +1,20 @@
+import {linea} from "wagmi/chains";
 import {Chain} from "./type";
+import {
+  base,
+  baseGoerli,
+  optimism,
+  optimismGoerli,
+  arbitrum,
+  arbitrumGoerli,
+  polygon,
+  polygonMumbai,
+  polygonZkEvm,
+  polygonZkEvmTestnet,
+  zkSync,
+  zkSyncTestnet,
+  lineaTestnet,
+} from "viem/chains";
 
 const chains: Chain[] = [
   {
@@ -18,6 +34,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "base-icon.png",
+    chains: [base, baseGoerli],
   },
   {
     name: "Optimism",
@@ -36,6 +53,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "op-icon.svg",
+    chains: [optimism, optimismGoerli],
   },
   {
     name: "Arbitrum",
@@ -54,6 +72,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "arbitrum-icon.png",
+    chains: [arbitrum, arbitrumGoerli],
   },
   {
     name: "Polygon",
@@ -72,6 +91,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "polygon-icon.png",
+    chains: [polygon, polygonZkEvm, polygonMumbai, polygonZkEvmTestnet],
   },
   {
     name: "zkSync",
@@ -90,6 +110,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "zksync-icon.png",
+    chains: [zkSync, zkSyncTestnet],
   },
   {
     name: "StarkNet",
@@ -108,6 +129,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "starknet-icon.webp",
+    chains: [],
   },
   {
     name: "Linea",
@@ -126,6 +148,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "linea-icon.avif",
+    chains: [linea, lineaTestnet],
   },
 ];
 

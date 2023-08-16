@@ -1,3 +1,5 @@
+import {Chain as ChainType} from "wagmi";
+
 export type Chain = {
   name: string;
   description: string;
@@ -14,4 +16,5 @@ export type Chain = {
     text: string;
   };
   icon: string;
+  chains: ChainType[];
 };

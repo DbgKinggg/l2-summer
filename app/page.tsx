@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { SortableList } from '@/components/sortable-list';
 import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
+import AddNetworkBtn from '@/components/shared/add-network-btn';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -45,10 +46,6 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
     { uid: "9be289", name: "Item 5" }
   ]);
 
-  async function handleSwitchNetworkClick() {
-
-  }
-
   return (
     <section className="grid md:grid-cols-2 gap-y-2 md:gap-y-0 md:space-x-6 my-auto max-w-6xl">
       <div className="px-3 md:px-6">
@@ -72,13 +69,13 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
           <SocialLink url={selectedChain.bridge} label={`Bridge`} />
           <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} />
         </ul>
-        <div>
-          <button className="rounded-3xl border p-2"
-            onClick={handleSwitchNetworkClick}
-          >Add network</button>
+        <div className="mt-4 px-2 md:px-6">
+          <ClientOnly>
+            <AddNetworkBtn chain={selectedChain} />
+          </ClientOnly>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 
@@ -105,7 +102,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
 
   return (
     <div className="flex justify-between overflow-x-hidden w-full">
-      <ul className="flex w-full space-x-3 overflow-auto transition-all">
+      <ul className="flex w-full space-x-3 lg:justify-center overflow-auto transition-all">
         <SortableList
           items={chainList}
           getItemId={(chain) => chain.name}
