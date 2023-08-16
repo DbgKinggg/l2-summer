@@ -104,44 +104,46 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
   }
 
   return (
-    <ul className="grid grid-flow-col space-x-3 overflow-x-scroll">
-      <SortableList
-        items={chainList}
-        getItemId={(chain) => chain.name}
-        renderItem={({
-          item,
-          isActive,
-          isDragged,
-          ref,
-          props,
-          handleProps
-        }) => {
-          const isSelected = selectedChain.name === item.name;
-          const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
-          let className = twMerge('w-28 h-28 relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
-          const iconClassName = `absolute bottom-1 transition-all opacity-0 group-hover:opacity-100 left-1/2 cursor-move -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'}`;
+    <div className="flex justify-between overflow-x-hidden w-full">
+      <ul className="flex w-full space-x-3 overflow-auto transition-all">
+        <SortableList
+          items={chainList}
+          getItemId={(chain) => chain.name}
+          renderItem={({
+            item,
+            isActive,
+            isDragged,
+            ref,
+            props,
+            handleProps
+          }) => {
+            const isSelected = selectedChain.name === item.name;
+            const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
+            let className = twMerge('w-28 h-28 aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
+            const iconClassName = `absolute bottom-1 transition-all opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'} ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`;
 
-          if (isActive) className += " isActive";
-          if (isDragged) className += " isDragged";
+            if (isActive) className += " opacity-50";
+            if (isDragged) className += " opacity-50";
 
-          return (
-            <li ref={ref} className={className} {...props}
-              style={{
-                color: isSelected ? selectedChain.colors.background : 'white'
-              }}
-              onClick={() => handleChainButtonClick(item)}
-            >
-              <span className="m-auto group-hover:text-xl transition-all group-hover:-translate-y-2">{item.name}</span>
-              <DragIcon className={iconClassName} {...handleProps} />
-            </li>
-          );
-        }}
-        onSort={(oldIndex, newIndex) => {
-          const newItems = chainList.slice();
-          newItems.splice(newIndex, 0, newItems.splice(oldIndex, 1)[0]);
-          setChainList(newItems);
-        }}
-      />
-    </ul>
+            return (
+              <li ref={ref} className={className} {...props}
+                style={{
+                  color: isSelected ? selectedChain.colors.background : 'white'
+                }}
+                onClick={() => handleChainButtonClick(item)}
+              >
+                <span className="m-auto group-hover:text-xl transition-all group-hover:-translate-y-2">{item.name}</span>
+                <DragIcon className={iconClassName} {...handleProps} />
+              </li>
+            );
+          }}
+          onSort={(oldIndex, newIndex) => {
+            const newItems = chainList.slice();
+            newItems.splice(newIndex, 0, newItems.splice(oldIndex, 1)[0]);
+            setChainList(newItems);
+          }}
+        />
+      </ul>
+    </div>
   )
 }
