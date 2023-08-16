@@ -9,6 +9,7 @@ import { SortableList } from '@/components/sortable-list';
 import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
 import AddNetworkBtn from '@/components/shared/add-network-btn';
+import { ExternalLink } from 'lucide-react';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -81,13 +82,14 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
 
 function SocialLink({ url, label }: { url: string, label: string }) {
   return (
-    <li className="rounded-3xl px-2 md:px-6 py-2 transition cursor-pointer hover:bg-white/10">
-      <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
+    <li className="rounded-3xl px-2 md:px-6 py-2 transition group cursor-pointer hover:bg-white/10">
+      <a className="flex  space-x-4 md:space-x-8" href={url} target='_blank'>
         <div className="w-10 h-10 aspect-square rounded-full bg-white my-auto"></div>
-        <div className="my-auto">
+        <div className="my-auto flex-1">
           <label className="cursor-pointer">{label}</label>
           <div className="text-white/70 text-xs md:text-base break-all">{url}</div>
         </div>
+        <ExternalLink className="my-auto opacity-0 transition-all group-hover:opacity-90 ease-in duration-300" />
       </a>
     </li>
   );
@@ -117,7 +119,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
             const isSelected = selectedChain.name === item.name;
             const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
             let className = twMerge('w-28 h-28 aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
-            const iconClassName = `absolute bottom-1 transition-all opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'} ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`;
+            const iconClassName = `absolute bottom-1 transition-all ease-in duration-300 opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'} ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`;
 
             if (isActive) className += " opacity-50";
             if (isDragged) className += " opacity-50";
