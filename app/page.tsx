@@ -5,9 +5,13 @@ import { Chain } from '@/config/type';
 import { useState, Dispatch, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Image from 'next/image';
+import { SortableList } from '@/components/sortable-list';
+import DragIcon from "@/components/icons/drag-icon";
+import ClientOnly from '@/components/shared/client-only';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
+  const [chainList, setChainList] = useState<Chain[]>(chains);
 
   return (
     <>
@@ -19,13 +23,32 @@ export default function Home() {
         }}
       >
         <ChainInfo selectedChain={selectedChain} />
-        <ChainButtons selectedChain={selectedChain} setSelectedChain={setSelectedChain} />
+        <ClientOnly>
+          <ChainButtons
+            selectedChain={selectedChain}
+            setSelectedChain={setSelectedChain}
+            chainList={chainList}
+            setChainList={setChainList}
+          />
+        </ClientOnly>
       </main>
     </>
   )
 }
 
 function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
+  const [items, setItems] = useState([
+    { uid: "62cb30", name: "Item 1" },
+    { uid: "0867d4", name: "Item 2" },
+    { uid: "4706b3", name: "Item 3" },
+    { uid: "6781ff", name: "Item 4" },
+    { uid: "9be289", name: "Item 5" }
+  ]);
+
+  async function handleSwitchNetworkClick() {
+
+  }
+
   return (
     <section className="grid md:grid-cols-2 gap-y-2 md:gap-y-0 md:space-x-6 my-auto max-w-6xl">
       <div className="px-3 md:px-6">
@@ -47,8 +70,13 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
           <SocialLink url={selectedChain.explorer} label={`Explorer`} />
           <SocialLink url={selectedChain.github} label={`Github`} />
           <SocialLink url={selectedChain.bridge} label={`Bridge`} />
-          <SocialLink url={selectedChain.twitter.url} label={selectedChain.twitter.handle} />
+          <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} />
         </ul>
+        <div>
+          <button className="rounded-3xl border p-2"
+            onClick={handleSwitchNetworkClick}
+          >Add network</button>
+        </div>
       </div>
     </section>
   );
@@ -60,44 +88,60 @@ function SocialLink({ url, label }: { url: string, label: string }) {
       <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
         <div className="w-10 h-10 aspect-square rounded-full bg-white my-auto"></div>
         <div className="my-auto">
-          <label>{label}</label>
-          <div className="text-white/70 text-xs md:text-base">{url}</div>
+          <label className="cursor-pointer">{label}</label>
+          <div className="text-white/70 text-xs md:text-base break-all">{url}</div>
         </div>
       </a>
     </li>
   );
 }
 
-function ChainButtons({ selectedChain, setSelectedChain }: { selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>> }) {
-  return (
-    <div className="flex flex-row space-x-3 overflow-x-auto">
-      {
-        chains.map((chain) => (
-          <ChainButton key={chain.name} chain={chain} selectedChain={selectedChain} setSelectedChain={setSelectedChain} />
-        ))
-      }
-    </div>
-  )
-}
-
-function ChainButton({ chain, selectedChain, setSelectedChain }: { chain: Chain, selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>> }) {
-  const isSelected = selectedChain.name === chain.name;
-  const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
+function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList }
+  : { selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>>, chainList: Chain[], setChainList: Dispatch<SetStateAction<Chain[]>> }) {
 
   function handleChainButtonClick(chain: Chain) {
     setSelectedChain(chain);
   }
 
   return (
-    <button
-      type="button"
-      className={twMerge('w-28 h-28 rounded-3xl transition-all border transition-all inline-block relative', isSelectedClasses)}
-      style={{
-        color: isSelected ? selectedChain.colors.background : 'white'
-      }}
-      onClick={() => handleChainButtonClick(chain)}
-    >
-      {chain.name}
-    </button>
-  );
+    <ul className="grid grid-flow-col space-x-3 overflow-x-scroll">
+      <SortableList
+        items={chainList}
+        getItemId={(chain) => chain.name}
+        renderItem={({
+          item,
+          isActive,
+          isDragged,
+          ref,
+          props,
+          handleProps
+        }) => {
+          const isSelected = selectedChain.name === item.name;
+          const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
+          let className = twMerge('w-28 h-28 relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
+          const iconClassName = `absolute bottom-1 transition-all opacity-0 group-hover:opacity-100 left-1/2 cursor-move -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'}`;
+
+          if (isActive) className += " isActive";
+          if (isDragged) className += " isDragged";
+
+          return (
+            <li ref={ref} className={className} {...props}
+              style={{
+                color: isSelected ? selectedChain.colors.background : 'white'
+              }}
+              onClick={() => handleChainButtonClick(item)}
+            >
+              <span className="m-auto group-hover:text-xl transition-all group-hover:-translate-y-2">{item.name}</span>
+              <DragIcon className={iconClassName} {...handleProps} />
+            </li>
+          );
+        }}
+        onSort={(oldIndex, newIndex) => {
+          const newItems = chainList.slice();
+          newItems.splice(newIndex, 0, newItems.splice(oldIndex, 1)[0]);
+          setChainList(newItems);
+        }}
+      />
+    </ul>
+  )
 }

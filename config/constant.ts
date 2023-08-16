@@ -40,7 +40,7 @@ const chains: Chain[] = [
   {
     name: "Arbitrum",
     description:
-      "Arbitrum is an Eth layer2 scaling solution that supports smart contracts without the limitations of scalability and privacy. Users enjoy low transaction fees and less congestion on Arbitrum.",
+      "Arbitrum is an Eth layer2 scaling solution that supports smart contracts without the limitations of scalability and privacy. Users enjoy low transaction fees and less congestion on Arbitrum. Arbitrum allows developers to create smart contracts by using code to specify the behavior of a virtual machine (VM) that implements the contract’s functionality.",
     twitter: {
       handle: "arbitrum",
       url: "https://twitter.com/arbitrum",
@@ -94,7 +94,7 @@ const chains: Chain[] = [
   {
     name: "StarkNet",
     description:
-      "StarkNet is a Zero-Knowledge Rollup (ZK-Rollup) that is decentralized, permissionless, and censorship-resistant. It supports general computation over Ethereum. Developers create applications on StarkNet allowing users to send transactions the same way they do with Ethereum today. All StarkNet transactions are periodically batched, and their validity is proven on a stark proof, which is then verified on the Ethereum Blockchain.",
+      "StarkNet is a Zero-Knowledge Rollup (ZK-Rollup) that is decentralized, permissionless, and censorship-resistant. It supports general computation over Ethereum.",
     twitter: {
       handle: "Starknet",
       url: "https://twitter.com/Starknet",
