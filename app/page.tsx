@@ -2,7 +2,7 @@
 import NavBar from '@/components/base/navbar'
 import { chains } from '@/config/constant'
 import { Chain } from '@/config/type';
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useState, Dispatch, SetStateAction, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Image from 'next/image';
 import { SortableList } from '@/components/sortable-list';
@@ -10,15 +10,21 @@ import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
 import AddNetworkBtn from '@/components/shared/add-network-btn';
 import { ExternalLink } from 'lucide-react';
-import ChainRanking from './(components)/ChainRanking';
+import ChainRanking from './(components)/chain-ranking';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { toPng } from 'html-to-image';
+import { useToast } from "@/components/ui/use-toast"
+import { Drawer } from 'vaul';
+import { forwardRef, RefObject } from 'react';
+import { ShareDrawer } from './(components)/share-drawer';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
   const [chainList, setChainList] = useState<Chain[]>(chains);
   const [nickname, setNickname] = useState<string>('');
+  const rankingElementRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -47,7 +53,9 @@ export default function Home() {
           />
           <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by sorting them</p>
           <div className="mt-12 flex flex-col px-2 items-center space-y-3 md:space-y-8 md:justify-center md:flex-row md:gap-x-6">
-            <ChainRanking chains={chainList} nickname={nickname} />
+            <div className="rounded-3xl w-full max-w-[28rem] overflow-hidden">
+              <ChainRanking ref={rankingElementRef} chains={chainList} nickname={nickname} />
+            </div>
             <div className="px-4 md:px-6 md:self-end border rounded-3xl py-6 shadow-md w-full md:w-auto bg-secondary">
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="name-input">Nickname</Label>
@@ -58,9 +66,9 @@ export default function Home() {
                   onChange={event => setNickname(event.target.value)}
                 />
               </div>
-              <Button className="mt-3">
-                Share
-              </Button>
+              <div className="mt-2">
+                <ShareDrawer refVal={rankingElementRef} />
+              </div>
             </div>
           </div>
         </section>
@@ -142,7 +150,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
             const isSelected = selectedChain.name === item.name;
             const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
             let className = twMerge('w-28 h-28 aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
-            const iconClassName = `absolute bottom-1 transition-all ease-in duration-300 opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'} ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`;
+            const iconClassName = `absolute bottom-1 transition-all ease-in duration-300 opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'}`;
 
             if (isActive) className += " opacity-50";
             if (isDragged) className += " opacity-50";
@@ -155,7 +163,9 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
                 onClick={() => handleChainButtonClick(item)}
               >
                 <span className="m-auto group-hover:text-xl transition-all font-bold group-hover:-translate-y-2">{item.name}</span>
-                <DragIcon className={iconClassName} {...handleProps} />
+                <div className={`absolute h-8 w-full bottom-0 ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`} {...handleProps}>
+                  <DragIcon className={iconClassName} />
+                </div>
               </li>
             );
           }}
