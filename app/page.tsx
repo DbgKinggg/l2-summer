@@ -18,37 +18,38 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <main className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 px-4 md:px-24 overflow-hidden transition-all delay-150"
-        style={{
-          background: selectedChain.colors.background,
-          color: selectedChain.colors.text,
-        }}
-      >
-        <ChainInfo selectedChain={selectedChain} />
-        <ClientOnly>
-          <ChainButtons
-            selectedChain={selectedChain}
-            setSelectedChain={setSelectedChain}
-            chainList={chainList}
-            setChainList={setChainList}
+      <main>
+        <section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
+          style={{
+            background: selectedChain.colors.background,
+            color: selectedChain.colors.text,
+          }}
+        >
+          <ChainInfo selectedChain={selectedChain} />
+          <ClientOnly>
+            <ChainButtons
+              selectedChain={selectedChain}
+              setSelectedChain={setSelectedChain}
+              chainList={chainList}
+              setChainList={setChainList}
+            />
+          </ClientOnly>
+        </section>
+        <section className="min-h-screen">
+          <img src="/images/up-arrow.png"
+            className="w-32 h-32 md:w-52 md:h-52 -translate-y-1/3 mx-auto"
+            alt="up arrow"
           />
-        </ClientOnly>
+          <p className="px-2 text-5xl md:text-9xl text-center font-semibold">Rank your Layer 2 chains by sorting them</p>
+        </section>
       </main>
     </>
   )
 }
 
 function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
-  const [items, setItems] = useState([
-    { uid: "62cb30", name: "Item 1" },
-    { uid: "0867d4", name: "Item 2" },
-    { uid: "4706b3", name: "Item 3" },
-    { uid: "6781ff", name: "Item 4" },
-    { uid: "9be289", name: "Item 5" }
-  ]);
-
   return (
-    <section className="grid md:grid-cols-2 gap-y-2 md:gap-y-0 md:space-x-6 my-auto max-w-6xl">
+    <section className="grid md:grid-cols-2 gap-y-2 px-4 md:gap-y-0 md:space-x-6 my-auto max-w-5xl">
       <div className="px-3 md:px-6">
         <div className="flex space-x-2 md:space-x-4 my-auto">
           <Image
@@ -60,7 +61,7 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
           />
           <h1 className="text-5xl md:text-6xl font-bold my-auto">{selectedChain.name}</h1>
         </div>
-        <p className="md:text-xl mt-4 md:mt-8">{selectedChain.description}</p>
+        <p className="md:text-xl mt-4 md:mt-8 text-white/80">{selectedChain.description}</p>
       </div>
       <div className='px-2 md:pt-20'>
         <ul>
@@ -87,7 +88,7 @@ function SocialLink({ url, label }: { url: string, label: string }) {
         <div className="w-10 h-10 aspect-square rounded-full bg-white my-auto"></div>
         <div className="my-auto flex-1">
           <label className="cursor-pointer">{label}</label>
-          <div className="text-white/70 text-xs md:text-base break-all">{url}</div>
+          <div className="text-white/70 text-xs md:text-sm break-all">{url}</div>
         </div>
         <ExternalLink className="my-auto opacity-0 transition-all group-hover:opacity-90 ease-in duration-300" />
       </a>
@@ -103,7 +104,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
   }
 
   return (
-    <div className="flex justify-between overflow-x-hidden w-full">
+    <div className="flex justify-between overflow-x-hidden w-full px-1">
       <ul className="flex w-full space-x-3 lg:justify-center overflow-auto transition-all">
         <SortableList
           items={chainList}
@@ -131,7 +132,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
                 }}
                 onClick={() => handleChainButtonClick(item)}
               >
-                <span className="m-auto group-hover:text-xl transition-all group-hover:-translate-y-2">{item.name}</span>
+                <span className="m-auto group-hover:text-xl transition-all font-bold group-hover:-translate-y-2">{item.name}</span>
                 <DragIcon className={iconClassName} {...handleProps} />
               </li>
             );

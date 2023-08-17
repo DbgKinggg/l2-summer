@@ -14,12 +14,6 @@ import { mainnet } from 'viem/chains'
 import { Chain as ChainType } from "wagmi";
 import { useToast } from "@/components/ui/use-toast"
 
-const walletClient = createWalletClient({
-    chain: mainnet,
-    // @ts-ignore:next-line
-    transport: custom(window?.ethereum)
-})
-
 function AddNetworkBtn({ chain }: { chain: Chain }) {
     return (
         <DropdownMenu>
@@ -40,6 +34,14 @@ function DropdownList({ chain }: { chain: Chain }) {
 
     async function handleAddChain(chain: ChainType) {
         try {
+            // @ts-ignore:next-line
+            const ethereum = typeof window !== undefined ? window?.ethereum : undefined;
+
+            const walletClient = createWalletClient({
+                chain: mainnet,
+                transport: custom(ethereum)
+            })
+
             await walletClient.addChain({
                 chain
             })

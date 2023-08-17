@@ -106,7 +106,7 @@ const chains: Chain[] = [
     github: "https://github.com/matter-labs",
     bridge: "https://portal.zksync.io/bridge",
     colors: {
-      background: "#1c68ff",
+      background: "#8f91fc",
       text: "white",
     },
     icon: "zksync-icon.png",
@@ -125,7 +125,7 @@ const chains: Chain[] = [
     github: "https://github.com/starknet-io",
     bridge: "https://starkgate.starknet.io",
     colors: {
-      background: "#0d0c4f",
+      background: "#eb786b",
       text: "white",
     },
     icon: "starknet-icon.webp",
