@@ -14,6 +14,7 @@ import ChainRanking from './(components)/chain-ranking';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ShareDrawer } from './(components)/share-drawer';
+import Footer from '@/components/base/footer';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -24,7 +25,7 @@ export default function Home() {
   return (
     <>
       <NavBar />
-      <main>
+      <main className="pb-4">
         <section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
           style={{
             background: selectedChain.colors.background,
@@ -48,7 +49,7 @@ export default function Home() {
           />
           <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by dragging them</p>
           <div className="mt-12 flex flex-col px-2 items-center space-y-3 md:space-y-8 md:justify-center md:flex-row md:gap-x-6">
-            <div className="rounded-3xl w-full max-w-[28rem] overflow-hidden">
+            <div className="rounded-3xl w-full max-w-[28rem] overflow-hidden shadow-md">
               <ChainRanking ref={rankingElementRef} chains={chainList} nickname={nickname} />
             </div>
             <div className="px-4 md:px-6 md:self-end border rounded-3xl py-6 shadow-md w-full md:w-auto bg-secondary">
@@ -67,6 +68,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <Footer />
       </main>
     </>
   )
