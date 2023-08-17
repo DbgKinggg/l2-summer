@@ -2,22 +2,17 @@
 import NavBar from '@/components/base/navbar'
 import { chains } from '@/config/constant'
 import { Chain } from '@/config/type';
-import { useState, Dispatch, SetStateAction, useRef } from 'react';
+import { useState, Dispatch, SetStateAction, useRef, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Image from 'next/image';
 import { SortableList } from '@/components/sortable-list';
 import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
 import AddNetworkBtn from '@/components/shared/add-network-btn';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Cable, Github, ArrowRightLeft, Twitter } from 'lucide-react';
 import ChainRanking from './(components)/chain-ranking';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { toPng } from 'html-to-image';
-import { useToast } from "@/components/ui/use-toast"
-import { Drawer } from 'vaul';
-import { forwardRef, RefObject } from 'react';
 import { ShareDrawer } from './(components)/share-drawer';
 
 export default function Home() {
@@ -51,7 +46,7 @@ export default function Home() {
             className="w-32 h-32 md:w-52 md:h-52 -translate-y-1/3 mx-auto"
             alt="up arrow"
           />
-          <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by sorting them</p>
+          <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by dragging them</p>
           <div className="mt-12 flex flex-col px-2 items-center space-y-3 md:space-y-8 md:justify-center md:flex-row md:gap-x-6">
             <div className="rounded-3xl w-full max-w-[28rem] overflow-hidden">
               <ChainRanking ref={rankingElementRef} chains={chainList} nickname={nickname} />
@@ -95,11 +90,11 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
       </div>
       <div className='px-2 md:pt-20'>
         <ul>
-          <SocialLink url={selectedChain.website} label={`Website`} />
-          <SocialLink url={selectedChain.explorer} label={`Explorer`} />
-          <SocialLink url={selectedChain.github} label={`Github`} />
-          <SocialLink url={selectedChain.bridge} label={`Bridge`} />
-          <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} />
+          <SocialLink url={selectedChain.website} label={`Website`} icon={<Cable className="w-8 h-8 my-auto first-line:" />} />
+          <SocialLink url={selectedChain.explorer} label={`Explorer`} icon={<ExternalLink className="w-8 h-8 my-auto" />} />
+          <SocialLink url={selectedChain.github} label={`Github`} icon={<Github className="w-8 h-8 my-auto" />} />
+          <SocialLink url={selectedChain.bridge} label={`Bridge`} icon={<ArrowRightLeft className="w-8 h-8 my-auto" />} />
+          <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} icon={<Twitter className="w-8 h-8 my-auto" />} />
         </ul>
         <div className="mt-4 px-2 md:px-6">
           <ClientOnly>
@@ -111,11 +106,11 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
   );
 }
 
-function SocialLink({ url, label }: { url: string, label: string }) {
+function SocialLink({ url, label, icon }: { url: string, label: string, icon: ReactNode }) {
   return (
     <li className="rounded-3xl px-2 md:px-6 py-2 transition group cursor-pointer hover:bg-white/10">
       <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
-        <div className="w-10 h-10 aspect-square rounded-full bg-white my-auto"></div>
+        {icon}
         <div className="my-auto flex-1">
           <label className="cursor-pointer">{label}</label>
           <div className="text-white/70 text-xs md:text-sm break-all">{url}</div>
