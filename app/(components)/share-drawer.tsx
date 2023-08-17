@@ -18,7 +18,6 @@ import Link from "next/link";
 
 export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
     const { toast } = useToast()
-    const [isSharing, setIsSharing] = useState<boolean>(false);
     const [imageUrl, setImageUrl] = useState<string>('');
 
     const twitterUrl = new URL("https://twitter.com/intent/tweet");
@@ -29,7 +28,6 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
     );
 
     const convertRankingToImage = async () => {
-        console.log(1);
         if (refVal === null || refVal.current === null) {
             toast({
                 variant: "destructive",
@@ -40,7 +38,7 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
         }
 
         try {
-            setIsSharing(true);
+            setImageUrl('');
             const url = await toPng(refVal.current, { cacheBust: false })
             setImageUrl(url);
         } catch (err: unknown) {
@@ -51,8 +49,6 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
                 title: "Failed to export image",
                 description: error.message ?? "Unknown error"
             })
-        } finally {
-            setIsSharing(false);
         }
     };
 
