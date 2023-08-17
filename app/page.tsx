@@ -10,10 +10,15 @@ import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
 import AddNetworkBtn from '@/components/shared/add-network-btn';
 import { ExternalLink } from 'lucide-react';
+import ChainRanking from './(components)/ChainRanking';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
   const [chainList, setChainList] = useState<Chain[]>(chains);
+  const [nickname, setNickname] = useState<string>('');
 
   return (
     <>
@@ -35,12 +40,29 @@ export default function Home() {
             />
           </ClientOnly>
         </section>
-        <section className="min-h-screen">
+        <section className="min-h-screen pb-20">
           <img src="/images/up-arrow.png"
             className="w-32 h-32 md:w-52 md:h-52 -translate-y-1/3 mx-auto"
             alt="up arrow"
           />
-          <p className="px-2 text-5xl md:text-9xl text-center font-semibold">Rank your Layer 2 chains by sorting them</p>
+          <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by sorting them</p>
+          <div className="mt-12 flex flex-col px-2 items-center space-y-3 md:space-y-8 md:justify-center md:flex-row md:gap-x-6">
+            <ChainRanking chains={chainList} nickname={nickname} />
+            <div className="px-4 md:px-6 md:self-end border rounded-3xl py-6 shadow-md w-full md:w-auto bg-secondary">
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="name-input">Nickname</Label>
+                <Input type="name"
+                  id="name-input"
+                  placeholder="Enter your name"
+                  value={nickname}
+                  onChange={event => setNickname(event.target.value)}
+                />
+              </div>
+              <Button className="mt-3">
+                Share
+              </Button>
+            </div>
+          </div>
         </section>
       </main>
     </>
@@ -84,7 +106,7 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
 function SocialLink({ url, label }: { url: string, label: string }) {
   return (
     <li className="rounded-3xl px-2 md:px-6 py-2 transition group cursor-pointer hover:bg-white/10">
-      <a className="flex  space-x-4 md:space-x-8" href={url} target='_blank'>
+      <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
         <div className="w-10 h-10 aspect-square rounded-full bg-white my-auto"></div>
         <div className="my-auto flex-1">
           <label className="cursor-pointer">{label}</label>
