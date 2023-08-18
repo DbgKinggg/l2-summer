@@ -29,7 +29,7 @@ export default function Home() {
       <main className="pb-4">
         <motion.section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
           initial="offscreen"
-          whileInView="onscreen"
+          animate="onscreen"
           style={{
             background: selectedChain.colors.background,
             color: selectedChain.colors.text,
