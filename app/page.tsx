@@ -27,16 +27,19 @@ export default function Home() {
     <>
       <NavBar />
       <main className="pb-4">
-        <motion.section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
-          initial="offscreen"
-          animate="onscreen"
+        <section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
           style={{
             background: selectedChain.colors.background,
             color: selectedChain.colors.text,
           }}
-          key={selectedChain.name}
         >
-          <ChainInfo selectedChain={selectedChain} />
+          <motion.div
+            initial="offscreen"
+            animate="onscreen"
+            key={selectedChain.name}
+          >
+            <ChainInfo selectedChain={selectedChain} />
+          </motion.div>
           <ClientOnly>
             <ChainButtons
               selectedChain={selectedChain}
@@ -45,7 +48,7 @@ export default function Home() {
               setChainList={setChainList}
             />
           </ClientOnly>
-        </motion.section>
+        </section>
         <section className="min-h-screen pb-20">
           <img src="/images/up-arrow.png"
             className="w-32 h-32 md:w-52 md:h-52 -translate-y-1/3 mx-auto"
