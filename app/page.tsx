@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/label';
 import { ShareDrawer } from './(components)/share-drawer';
 import Footer from '@/components/base/footer';
 import { motion, Variants } from 'framer-motion'
+import va from '@vercel/analytics';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -168,7 +169,11 @@ function SocialLink({ url, label, icon }: { url: string, label: string, icon: Re
         scale: 1.1
       }}
     >
-      <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
+      <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'
+        onClick={() => {
+          va.track('ClickSocialLink', { socialLink: label });
+        }}
+      >
         <motion.div
           className="my-auto"
           variants={iconAnimation}
@@ -189,6 +194,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList }
   : { selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>>, chainList: Chain[] }) {
 
   function handleChainButtonClick(chain: Chain) {
+    va.track('ClickChain', { chainName: chain.name });
     setSelectedChain(chain);
   }
 

@@ -13,6 +13,7 @@ import { createWalletClient, custom } from 'viem'
 import { mainnet } from 'viem/chains'
 import { Chain as ChainType } from "wagmi";
 import { useToast } from "@/components/ui/use-toast"
+import va from '@vercel/analytics'
 
 function AddNetworkBtn({ chain }: { chain: Chain }) {
     return (
@@ -34,6 +35,7 @@ function DropdownList({ chain }: { chain: Chain }) {
 
     async function handleAddChain(chain: ChainType) {
         try {
+            va.track('AddChain', { chain: chain.name, chainId: chain.id })
             // @ts-ignore:next-line
             const ethereum = typeof window !== undefined ? window?.ethereum : undefined;
 

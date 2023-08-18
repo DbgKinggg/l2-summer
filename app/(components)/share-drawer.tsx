@@ -14,7 +14,7 @@ import {
     AlertTitle,
 } from "@/components/ui/alert"
 import Link from "next/link";
-
+import va from '@vercel/analytics';
 
 export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
     const { toast } = useToast()
@@ -28,6 +28,7 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
     );
 
     const convertRankingToImage = async () => {
+        va.track('ShareClicked');
         if (refVal === null || refVal.current === null) {
             toast({
                 variant: "destructive",
@@ -95,7 +96,11 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
                                 <AlertDescription>
                                     <p>You can share this image by right-clicking it to copy or save it</p>
                                     <Button className="mt-2" asChild>
-                                        <Link href={twitterUrl} target="_blank">
+                                        <Link href={twitterUrl} target="_blank"
+                                            onClick={() => {
+                                                va.track('ShareTwitterClicked');
+                                            }}
+                                        >
                                             <Twitter className="mr-2 h-4 w-4" />
                                             Share
                                         </Link>
