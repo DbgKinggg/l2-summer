@@ -13,7 +13,9 @@ function NavBar() {
                     alt="logo"
                     className="my-auto"
                 />
-                <div className="text-xl md:text-2xl font-bold my-auto text-white">L2 Summer</div>
+                <div className="text-xl md:text-2xl font-bold my-auto text-white text-transparent bg-clip-text bg-gradient-to-r from-white to-white/80">
+                    L2 Summer
+                </div>
             </Link>
             <Web3Button />
         </header>

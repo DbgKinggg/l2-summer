@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ShareDrawer } from './(components)/share-drawer';
 import Footer from '@/components/base/footer';
+import { motion, Variants } from 'framer-motion'
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -26,11 +27,14 @@ export default function Home() {
     <>
       <NavBar />
       <main className="pb-4">
-        <section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
+        <motion.section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
+          initial="offscreen"
+          whileInView="onscreen"
           style={{
             background: selectedChain.colors.background,
             color: selectedChain.colors.text,
           }}
+          key={selectedChain.name}
         >
           <ChainInfo selectedChain={selectedChain} />
           <ClientOnly>
@@ -41,7 +45,7 @@ export default function Home() {
               setChainList={setChainList}
             />
           </ClientOnly>
-        </section>
+        </motion.section>
         <section className="min-h-screen pb-20">
           <img src="/images/up-arrow.png"
             className="w-32 h-32 md:w-52 md:h-52 -translate-y-1/3 mx-auto"
@@ -75,10 +79,45 @@ export default function Home() {
 }
 
 function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
+  const titleVariants: Variants = {
+    offscreen: {
+      y: 100,
+      rotate: 20,
+      opacity: 0,
+    },
+    onscreen: {
+      y: 0,
+      rotate: 0,
+      opacity: 100,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 0.8
+      }
+    }
+  };
+
+  const descriptionVariants: Variants = {
+    offscreen: {
+      y: 100,
+      opacity: 0,
+    },
+    onscreen: {
+      y: 0,
+      opacity: 100,
+      transition: {
+        duration: 0.5
+      }
+    }
+  }
+
   return (
     <section className="grid md:grid-cols-2 gap-y-2 px-4 md:gap-y-0 md:space-x-6 my-auto max-w-5xl">
       <div className="px-3 md:px-6">
-        <div className="flex space-x-2 md:space-x-4 my-auto">
+        <motion.div className="flex space-x-2 md:space-x-4 my-auto"
+          key={selectedChain.name}
+          variants={titleVariants}
+        >
           <Image
             width="100"
             height="100"
@@ -87,16 +126,22 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
             alt={selectedChain.name}
           />
           <h1 className="text-5xl md:text-6xl font-bold my-auto">{selectedChain.name}</h1>
-        </div>
-        <p className="md:text-xl mt-4 md:mt-8 text-white/80">{selectedChain.description}</p>
+        </motion.div>
+        <motion.p
+          className="md:text-xl mt-4 md:mt-8 text-white/80"
+          key={selectedChain.name}
+          variants={descriptionVariants}
+        >
+          {selectedChain.description}
+        </motion.p>
       </div>
       <div className='px-2 md:pt-20'>
         <ul>
-          <SocialLink url={selectedChain.website} label={`Website`} icon={<Cable className="w-8 h-8 my-auto first-line:" />} />
-          <SocialLink url={selectedChain.explorer} label={`Explorer`} icon={<ExternalLink className="w-8 h-8 my-auto" />} />
-          <SocialLink url={selectedChain.github} label={`Github`} icon={<Github className="w-8 h-8 my-auto" />} />
-          <SocialLink url={selectedChain.bridge} label={`Bridge`} icon={<ArrowRightLeft className="w-8 h-8 my-auto" />} />
-          <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} icon={<Twitter className="w-8 h-8 my-auto" />} />
+          <SocialLink url={selectedChain.website} label={`Website`} icon={<Cable className="w-8 h-8" />} />
+          <SocialLink url={selectedChain.explorer} label={`Explorer`} icon={<ExternalLink className="w-8 h-8" />} />
+          <SocialLink url={selectedChain.github} label={`Github`} icon={<Github className="w-8 h-8" />} />
+          <SocialLink url={selectedChain.bridge} label={`Bridge`} icon={<ArrowRightLeft className="w-8 h-8" />} />
+          <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} icon={<Twitter className="w-8 h-8" />} />
         </ul>
         <div className="mt-4 px-2 md:px-6">
           <ClientOnly>
@@ -109,17 +154,34 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
 }
 
 function SocialLink({ url, label, icon }: { url: string, label: string, icon: ReactNode }) {
+  const iconAnimation = {
+    initial: { rotate: 0, scale: 1 },
+    animate: { rotate: 20, scale: 1.5 },
+  }
+
   return (
-    <li className="rounded-3xl px-2 md:px-6 py-2 transition group cursor-pointer hover:bg-white/10">
+    <motion.li className="rounded-3xl px-2 md:px-6 py-2 transition group cursor-pointer hover:bg-white/10"
+      initial="initial"
+      animate="initial"
+      whileHover="animate"
+      whileTap={{
+        scale: 1.1
+      }}
+    >
       <a className="flex space-x-4 md:space-x-8" href={url} target='_blank'>
-        {icon}
+        <motion.div
+          className="my-auto"
+          variants={iconAnimation}
+        >
+          {icon}
+        </motion.div>
         <div className="my-auto flex-1">
           <label className="cursor-pointer">{label}</label>
           <div className="text-white/70 text-xs md:text-sm break-all">{url}</div>
         </div>
         <ExternalLink className="my-auto opacity-0 transition-all group-hover:opacity-90 ease-in duration-300" />
       </a>
-    </li>
+    </motion.li>
   );
 }
 
