@@ -43,7 +43,6 @@ export default function Home() {
               selectedChain={selectedChain}
               setSelectedChain={setSelectedChain}
               chainList={chainList}
-              setChainList={setChainList}
             />
           </ClientOnly>
         </section>
@@ -186,8 +185,8 @@ function SocialLink({ url, label, icon }: { url: string, label: string, icon: Re
   );
 }
 
-function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList }
-  : { selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>>, chainList: Chain[], setChainList: Dispatch<SetStateAction<Chain[]>> }) {
+function ChainButtons({ selectedChain, setSelectedChain, chainList }
+  : { selectedChain: Chain, setSelectedChain: Dispatch<SetStateAction<Chain>>, chainList: Chain[] }) {
 
   function handleChainButtonClick(chain: Chain) {
     setSelectedChain(chain);
