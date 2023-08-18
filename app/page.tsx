@@ -5,8 +5,6 @@ import { Chain } from '@/config/type';
 import { useState, Dispatch, SetStateAction, useRef, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Image from 'next/image';
-import { SortableList } from '@/components/sortable-list';
-import DragIcon from "@/components/icons/drag-icon";
 import ClientOnly from '@/components/shared/client-only';
 import AddNetworkBtn from '@/components/shared/add-network-btn';
 import { ExternalLink, Cable, Github, ArrowRightLeft, Twitter } from 'lucide-react';
@@ -29,7 +27,7 @@ export default function Home() {
       <main className="pb-4">
         <section className="flex min-h-screen flex-col space-y-12 items-center justify-between py-24 overflow-hidden transition-all delay-150"
           style={{
-            background: selectedChain.colors.background,
+            background: 'linear-gradient(to right bottom,rgb(255 255 255/10%),rgb(0 0 0/50%)), ' + selectedChain.colors.background,
             color: selectedChain.colors.text,
           }}
         >
@@ -197,47 +195,30 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
 
   return (
     <div className="flex justify-between overflow-x-hidden w-full px-1">
-      <ul className="grid grid-flow-col w-full space-x-3 lg:justify-center overflow-auto transition-all">
-        <SortableList
-          items={chainList}
-          getItemId={(chain) => chain.name}
-          renderItem={({
-            item,
-            isActive,
-            isDragged,
-            ref,
-            props,
-            handleProps
-          }) => {
-            const isSelected = selectedChain.name === item.name;
+      <ul className="grid grid-flow-col w-full py-4 space-x-3 lg:justify-center overflow-auto transition-all">
+        {
+          chainList.map(chain => {
+            const isSelected = selectedChain.name === chain.name;
             const isSelectedClasses = isSelected ? 'bg-white' : 'hover:border-4';
-            let className = twMerge('w-28 h-28 aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
-            const iconClassName = `absolute bottom-1 transition-all ease-in duration-300 opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'}`;
-
-            if (isActive) className += " opacity-100";
-            if (isDragged) className += " opacity-50";
+            let className = twMerge('w-28 h-28 cursor-pointer aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
 
             return (
-              <li ref={ref} className={className} {...props}
+              <motion.li
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={className}
+                key={chain.name}
                 style={{
                   color: isSelected ? selectedChain.colors.background : 'white'
                 }}
-                onClick={() => handleChainButtonClick(item)}
+                onClick={() => handleChainButtonClick(chain)}
               >
-                <span className="m-auto group-hover:text-xl transition-all font-bold group-hover:-translate-y-2">{item.name}</span>
-                <div className={`absolute h-8 w-full bottom-0 rounded-b-2xl hover:bg-white/20 ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`} {...handleProps}>
-                  <DragIcon className={iconClassName} />
-                </div>
-              </li>
+                <span className="m-auto group-hover:text-xl transition-all font-bold group-hover:-translate-y-2">{chain.name}</span>
+              </motion.li>
             );
-          }}
-          onSort={(oldIndex, newIndex) => {
-            const newItems = chainList.slice();
-            newItems.splice(newIndex, 0, newItems.splice(oldIndex, 1)[0]);
-            setChainList(newItems);
-          }}
-        />
+          })
+        }
       </ul>
     </div>
-  )
+  );
 }
