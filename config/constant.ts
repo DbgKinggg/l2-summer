@@ -20,7 +20,7 @@ const chains: Chain[] = [
   {
     name: "Base",
     description:
-      "Base is a secure, low-cost, builder-friendly Ethereum L2 built to bring the next billion users onchain. Built on OP Stack",
+      "Base is a secure, low-cost, builder-friendly Ethereum L2 built to bring the next billion users onchain. Built on OP Stack.",
     twitter: {
       handle: "BuildOnBase",
       url: "https://twitter.com/BuildOnBase",
@@ -58,7 +58,7 @@ const chains: Chain[] = [
   {
     name: "Arbitrum",
     description:
-      "Arbitrum is an Eth layer2 scaling solution that supports smart contracts without the limitations of scalability and privacy. Users enjoy low transaction fees and less congestion on Arbitrum. Arbitrum allows developers to create smart contracts by using code to specify the behavior of a virtual machine (VM) that implements the contract’s functionality.",
+      "Arbitrum is an Ethereum layer2 scaling solution that supports smart contracts without the limitations of scalability and privacy. Users enjoy low transaction fees and less congestion on Arbitrum.",
     twitter: {
       handle: "arbitrum",
       url: "https://twitter.com/arbitrum",
