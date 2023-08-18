@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Layer 2 Summer',
-  description: 'Layer 2 Summer is place where you can find information about a collection of Layer 2 blockchains.',
+  description: 'Layer 2 Summer is place where you can find information about a list of Layer 2 blockchains.',
   icons: {
     icon: '/favicon-32x32.png',
     apple: '/apple-touch-icon.png',

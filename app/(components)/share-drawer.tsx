@@ -21,7 +21,7 @@ export function ShareDrawer({ refVal }: { refVal: RefObject<HTMLDivElement> }) {
     const [imageUrl, setImageUrl] = useState<string>('');
 
     const twitterUrl = new URL("https://twitter.com/intent/tweet");
-    const sharingText = "Just crafted my L2 ranking on l2summer.xyz 🚀 Join me, learn more about L2 & create your own ranking! (Dev by @Dbgkinggg) 💡 #Layer2 #l2summer";
+    const sharingText = "Just crafted my L2 ranking on l2summer.com 🚀 Join me, learn more about L2 & create your own ranking! (Dev by @Dbgkinggg) 💡 #Layer2 #l2summer";
     twitterUrl.searchParams.set(
         "text",
         sharingText

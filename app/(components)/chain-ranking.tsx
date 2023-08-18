@@ -51,7 +51,7 @@ const ChainRanking = forwardRef<HTMLDivElement, ChainRankingProps>(function ({ c
                     Layer 2 Summer
                 </span>
             </div>
-            <p className="absolute bottom-0 md:bottom-1 right-6 text-xs opacity-75">l2summer.xyz</p>
+            <p className="absolute bottom-0 md:bottom-1 right-6 text-xs opacity-75">l2summer.com</p>
         </div>
     );
 })
