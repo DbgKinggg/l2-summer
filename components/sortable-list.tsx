@@ -16,7 +16,7 @@ import {
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
-    horizontalListSortingStrategy,
+    rectSortingStrategy
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import React, { useCallback, useMemo, useState } from "react";
@@ -173,7 +173,7 @@ export const SortableList = <T extends object>({
                 collisionDetection={closestCenter}
                 modifiers={[restrictToFirstScrollableAncestor]}
             >
-                <SortableContext items={itemIds} strategy={horizontalListSortingStrategy}>
+                <SortableContext items={itemIds} strategy={rectSortingStrategy}>
                     {itemIds.map((id, i) => (
                         <SortableItem
                             key={i}

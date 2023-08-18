@@ -50,7 +50,7 @@ export default function Home() {
           <p className="px-2 text-5xl md:text-7xl text-center font-semibold">Rank your Layer 2 chains by dragging them</p>
           <div className="mt-12 flex flex-col px-2 items-center space-y-3 md:space-y-8 md:justify-center md:flex-row md:gap-x-6">
             <div className="rounded-3xl w-full max-w-[28rem] overflow-hidden shadow-md">
-              <ChainRanking ref={rankingElementRef} chains={chainList} nickname={nickname} />
+              <ChainRanking ref={rankingElementRef} chains={chainList} nickname={nickname} setChains={setChainList} />
             </div>
             <div className="px-4 md:px-6 md:self-end border rounded-3xl py-6 shadow-md w-full md:w-auto bg-secondary">
               <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -132,7 +132,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
 
   return (
     <div className="flex justify-between overflow-x-hidden w-full px-1">
-      <ul className="flex w-full space-x-3 lg:justify-center overflow-auto transition-all">
+      <ul className="grid grid-flow-col w-full space-x-3 lg:justify-center overflow-auto transition-all">
         <SortableList
           items={chainList}
           getItemId={(chain) => chain.name}
@@ -149,7 +149,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
             let className = twMerge('w-28 h-28 aspect-square relative flex text-center rounded-3xl transition-all border relative group', isSelectedClasses)
             const iconClassName = `absolute bottom-1 transition-all ease-in duration-300 opacity-0 group-hover:opacity-100 left-1/2 -translate-x-1/2 ${isSelected ? 'fill-black' : 'fill-white/70'}`;
 
-            if (isActive) className += " opacity-50";
+            if (isActive) className += " opacity-100";
             if (isDragged) className += " opacity-50";
 
             return (
@@ -160,7 +160,7 @@ function ChainButtons({ selectedChain, setSelectedChain, chainList, setChainList
                 onClick={() => handleChainButtonClick(item)}
               >
                 <span className="m-auto group-hover:text-xl transition-all font-bold group-hover:-translate-y-2">{item.name}</span>
-                <div className={`absolute h-8 w-full bottom-0 ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`} {...handleProps}>
+                <div className={`absolute h-8 w-full bottom-0 rounded-b-2xl hover:bg-white/20 ${isDragged ? 'cursor-grabbing' : 'cursor-grab'}`} {...handleProps}>
                   <DragIcon className={iconClassName} />
                 </div>
               </li>
