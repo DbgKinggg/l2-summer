@@ -15,6 +15,8 @@ import { ShareDrawer } from './(components)/share-drawer';
 import Footer from '@/components/base/footer';
 import { motion, Variants } from 'framer-motion'
 import va from '@vercel/analytics';
+import TokensBtn from './(components)/tokens-btn';
+import DAppBtn from './(components)/dapp-btn';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -144,10 +146,12 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
           <SocialLink url={selectedChain.bridge} label={`Bridge`} icon={<ArrowRightLeft className="w-8 h-8" />} />
           <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} icon={<Twitter className="w-8 h-8" />} />
         </ul>
-        <div className="mt-4 px-2 md:px-6">
+        <div className="mt-4 px-2 md:px-6 flex flex-wrap gap-x-1 gap-y-2">
           <ClientOnly>
             <AddNetworkBtn chain={selectedChain} />
           </ClientOnly>
+          <TokensBtn />
+          <DAppBtn />
         </div>
       </div>
     </section >

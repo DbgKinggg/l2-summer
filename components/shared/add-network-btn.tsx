@@ -14,12 +14,16 @@ import { mainnet } from 'viem/chains'
 import { Chain as ChainType } from "wagmi";
 import { useToast } from "@/components/ui/use-toast"
 import va from '@vercel/analytics'
+import { Plus } from "lucide-react";
 
 function AddNetworkBtn({ chain }: { chain: Chain }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Button variant="secondary">Add Network</Button>
+                <Button variant="secondary">
+                    <Plus width={20} height={20} />
+                    Add Network
+                </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownList chain={chain} />
