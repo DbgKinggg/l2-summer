@@ -77,13 +77,32 @@ const chains: Chain[] = [
   {
     name: "Polygon",
     description:
+      "Polygon (previously Matic Network) is the first well-structured, easy-to-use platform for Ethereum scaling and infrastructure development. Its core component is Polygon SDK, a modular, flexible framework that supports building multiple types of applications.",
+    twitter: {
+      handle: "0xPolygon",
+      url: "https://twitter.com/0xPolygon",
+    },
+    website: "https://polygon.technology/polygon-pos",
+    explorer: "https://polygonscan.com/",
+    github: "https://github.com/maticnetwork",
+    bridge: "https://wallet.polygon.technology/polygon/bridge",
+    colors: {
+      background: "#8343f3",
+      text: "white",
+    },
+    icon: "polygon-icon.png",
+    chains: [polygon, polygonMumbai],
+  },
+  {
+    name: "Polygon zkEVM",
+    description:
       "Polygon zkEVM is an EVM equivalent ZK rollup scaling solution. All existing smart contracts, developer toolings and wallets work seamlessly. Polygon zkEVM uses the zero-knowledge proofs (validity proofs) to lower transaction costs and increase throughput, while inheriting the base-layer security of Ethereum.",
     twitter: {
       handle: "0xPolygon",
       url: "https://twitter.com/0xPolygon",
     },
-    website: "https://polygon.technology",
-    explorer: "https://polygon.technology",
+    website: "https://polygon.technology/polygon-zkevm",
+    explorer: "https://zkevm.polygonscan.com/",
     github: "https://github.com/maticnetwork",
     bridge: "https://wallet.polygon.technology/zkEVM-Bridge/bridge",
     colors: {
@@ -91,7 +110,7 @@ const chains: Chain[] = [
       text: "white",
     },
     icon: "polygon-icon.png",
-    chains: [polygon, polygonZkEvm, polygonMumbai, polygonZkEvmTestnet],
+    chains: [polygonZkEvm, polygonZkEvmTestnet],
   },
   {
     name: "zkSync",
