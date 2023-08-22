@@ -19,7 +19,7 @@ import { Plus } from "lucide-react";
 function AddNetworkBtn({ chain }: { chain: Chain }) {
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild>
                 <Button variant="secondary">
                     <Plus width={20} height={20} />
                     Add Network

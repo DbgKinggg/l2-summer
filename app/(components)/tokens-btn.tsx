@@ -1,21 +1,61 @@
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Coins } from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Chain, Token } from "@/config/type";
+import { useEffect } from "react";
+import { DataTable } from "@/components/shared/data-table";
+import { columns } from '@/lib/tokens/shared'
+import { useState } from "react";
 
-function TokensBtn() {
-    const { toast } = useToast();
+async function getTokens(chainName: string) {
+    if (chainName === 'Base') {
+        return (await import('../../lib/tokens/base')).tokens;
+    }
+
+    return [];
+}
+
+function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
+    const [tokens, setTokens] = useState<Token[]>([]);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const tokens = await getTokens(selectedChain.name);
+
+                setTokens(tokens);
+            } catch (err) {
+                console.log('Error occured when fetching books');
+            }
+        })();
+    }, []);
 
     return (
-        <Button
-            onClick={() => toast({
-                variant: "default",
-                title: "Coming soon",
-                description: "This feature is coming soon!"
-            })}
-        >
-            <Coins width={20} height={20} />
-            Tokens
-        </Button>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button>
+                    <Coins width={20} height={20} />
+                    Tokens
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl">
+                <DialogHeader>
+                    <DialogTitle>
+                        Tokens on&nbsp;<strong>{selectedChain.name}</strong>
+                    </DialogTitle>
+                </DialogHeader>
+                <div className="overflow-x-auto">
+                    <DataTable columns={columns} data={tokens} />
+                </div>
+            </DialogContent>
+        </Dialog>
     );
 }
 

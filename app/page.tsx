@@ -37,7 +37,7 @@ export default function Home() {
           <motion.div
             initial="offscreen"
             animate="onscreen"
-            key={selectedChain.name}
+            key={selectedChain.name + '-info'}
           >
             <ChainInfo selectedChain={selectedChain} />
           </motion.div>
@@ -126,7 +126,7 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
     <section className="grid md:grid-cols-2 gap-y-2 px-4 md:gap-y-0 md:space-x-6 my-auto max-w-5xl">
       <div className="px-3 md:px-6">
         <motion.div className="flex space-x-2 md:space-x-4 my-auto"
-          key={selectedChain.name}
+          key={selectedChain.name + '-title'}
           variants={titleVariants}
         >
           <Image
@@ -157,8 +157,8 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
         <div className="mt-4 px-2 md:px-6 flex flex-wrap gap-x-1 gap-y-2">
           <ClientOnly>
             <AddNetworkBtn chain={selectedChain} />
+            <TokensBtn selectedChain={selectedChain} />
           </ClientOnly>
-          <TokensBtn />
           <DAppBtn />
         </div>
       </div>
