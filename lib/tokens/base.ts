@@ -6,7 +6,12 @@ const tokens: Token[] = [
     symbol: "USDC",
     address: "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca",
     twitter_handle: "circle",
-    website: ["https://www.circle.com/en/usdc"],
+    website: [
+      {
+        name: "Circle",
+        url: "https://www.circle.com/en/usdc",
+      },
+    ],
     image_file_name: "usdc.png",
   },
   {
@@ -22,7 +27,12 @@ const tokens: Token[] = [
     symbol: "DAI",
     address: "0x50c5725949a6f0c72e6c4a641f24049a917db0cb",
     twitter_handle: "MakerDAO",
-    website: ["https://makerdao.com/"],
+    website: [
+      {
+        name: "MakerDAO",
+        url: "https://makerdao.com/",
+      },
+    ],
     image_file_name: "dai.png",
   },
   {
@@ -31,7 +41,7 @@ const tokens: Token[] = [
     address: "0x27d2decb4bfc9c76f0309b8e88dec3a601fe25a8",
     twitter_handle: null,
     website: [],
-    image_file_name: "bald.png",
+    image_file_name: "bald.webp",
   },
   {
     name: "Base",
@@ -39,7 +49,7 @@ const tokens: Token[] = [
     address: "0xd07379a755A8f11B57610154861D694b2A0f615a",
     twitter_handle: null,
     website: [],
-    image_file_name: "base.png",
+    image_file_name: "base.webp",
   },
 ];
 

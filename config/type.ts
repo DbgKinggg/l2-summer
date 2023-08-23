@@ -24,7 +24,10 @@ export type Chain = {
 export type Token = {
   symbol: string;
   name: string;
-  website: string[];
+  website: {
+    name: string;
+    url: string;
+  }[];
   twitter_handle: string | null;
   image_file_name: string;
   address: string;

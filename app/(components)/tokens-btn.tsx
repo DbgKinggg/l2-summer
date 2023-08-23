@@ -3,7 +3,6 @@ import { Coins } from "lucide-react";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
@@ -45,7 +44,7 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
                     Tokens
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl">
+            <DialogContent className="max-w-4xl md:max-h-[75vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>
                         Tokens on&nbsp;<strong>{selectedChain.name}</strong>
