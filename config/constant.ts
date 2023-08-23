@@ -16,9 +16,20 @@ import {
   lineaTestnet,
 } from "viem/chains";
 
+export enum ChainList {
+  BASE = "Base",
+  OPTIMISM = "Optimism",
+  ARBITRUM = "Arbitrum",
+  POLYGON = "Polygon",
+  POLYGON_ZKEVM = "Polygon zkEVM",
+  ZKSYNC = "zkSync",
+  STARKNET = "StarkNet",
+  LINEA = "Linea",
+}
+
 const chains: Chain[] = [
   {
-    name: "Base",
+    name: ChainList.BASE,
     description:
       "Base is a secure, low-cost, builder-friendly Ethereum L2 built to bring the next billion users onchain. Built on OP Stack.",
     twitter: {
@@ -37,7 +48,7 @@ const chains: Chain[] = [
     chains: [base, baseGoerli],
   },
   {
-    name: "Optimism",
+    name: ChainList.OPTIMISM,
     description:
       "Founded in 2019, Optimism is an L2 blockchain built by Ethereum developers that processes its transactions in batches using optimistic rollups. Users gain access to cheap and near instantaneous transactions are cheap and nearly instantaneous. Developers can use Optimism as a fast, stable, scalable and secure solution to programmes requiring Ethereum apps.",
     twitter: {
@@ -56,7 +67,7 @@ const chains: Chain[] = [
     chains: [optimism, optimismGoerli],
   },
   {
-    name: "Arbitrum",
+    name: ChainList.ARBITRUM,
     description:
       "Arbitrum is an Ethereum layer2 scaling solution that supports smart contracts without the limitations of scalability and privacy. Users enjoy low transaction fees and less congestion on Arbitrum.",
     twitter: {
@@ -75,7 +86,7 @@ const chains: Chain[] = [
     chains: [arbitrum, arbitrumGoerli],
   },
   {
-    name: "Polygon",
+    name: ChainList.POLYGON,
     description:
       "Polygon (previously Matic Network) is the first well-structured, easy-to-use platform for Ethereum scaling and infrastructure development. Its core component is Polygon SDK, a modular, flexible framework that supports building multiple types of applications.",
     twitter: {
@@ -94,7 +105,7 @@ const chains: Chain[] = [
     chains: [polygon, polygonMumbai],
   },
   {
-    name: "Polygon zkEVM",
+    name: ChainList.POLYGON_ZKEVM,
     description:
       "Polygon zkEVM is an EVM equivalent ZK rollup scaling solution. All existing smart contracts, developer toolings and wallets work seamlessly. Polygon zkEVM uses the zero-knowledge proofs (validity proofs) to lower transaction costs and increase throughput, while inheriting the base-layer security of Ethereum.",
     twitter: {
@@ -113,7 +124,7 @@ const chains: Chain[] = [
     chains: [polygonZkEvm, polygonZkEvmTestnet],
   },
   {
-    name: "zkSync",
+    name: ChainList.ZKSYNC,
     description:
       "zkSync Era is a Layer-2 protocol that scales Ethereum with cutting-edge ZK tech. Our mission is not only to merely increase Ethereum's throughput, but to fully preserve its foundational values – freedom, self-sovereignty, decentralization – at scale.",
     twitter: {
@@ -132,7 +143,7 @@ const chains: Chain[] = [
     chains: [zkSync, zkSyncTestnet],
   },
   {
-    name: "StarkNet",
+    name: ChainList.STARKNET,
     description:
       "StarkNet is a Zero-Knowledge Rollup (ZK-Rollup) that is decentralized, permissionless, and censorship-resistant. It supports general computation over Ethereum.",
     twitter: {
@@ -151,7 +162,7 @@ const chains: Chain[] = [
     chains: [],
   },
   {
-    name: "Linea",
+    name: ChainList.LINEA,
     description:
       "Linea is a developer-ready Ethereum-equivalent zkEVM network that utilizes zero knowledge technology and rollups. It also features technology like quantum-resistant lattice-based cryptography and its Canonical Messaging Sevice.",
     twitter: {

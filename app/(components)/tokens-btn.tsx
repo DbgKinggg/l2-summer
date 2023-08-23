@@ -12,10 +12,15 @@ import { useEffect } from "react";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from '@/lib/tokens/shared'
 import { useState } from "react";
+import { ChainList } from "@/config/constant";
 
 async function getTokens(chainName: string) {
-    if (chainName === 'Base') {
+    if (chainName === ChainList.BASE) {
         return (await import('../../lib/tokens/base')).tokens;
+    }
+
+    if (chainName === ChainList.ARBITRUM) {
+        return (await import('../../lib/tokens/arbitrum')).tokens;
     }
 
     return [];
@@ -51,7 +56,7 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
                     </DialogTitle>
                 </DialogHeader>
                 <div className="overflow-x-auto">
-                    <DataTable columns={columns} data={tokens} />
+                    <DataTable columns={columns} data={tokens} hiddenFields={{ 'name': false }} />
                 </div>
             </DialogContent>
         </Dialog>

@@ -22,6 +22,7 @@ import {
 const columns: ColumnDef<Token>[] = [
   {
     header: "Token",
+    accessorKey: 'symbol',
     cell: ({ row }) => {
       const token = row.original;
 
@@ -43,7 +44,12 @@ const columns: ColumnDef<Token>[] = [
     },
   },
   {
+    header: "Name",
+    accessorKey: 'name',
+  },
+  {
     header: "Contract Address",
+    accessorKey: 'address',
     cell: ({ row }) => {
       const token = row.original;
       // eslint-disable-next-line react-hooks/rules-of-hooks
