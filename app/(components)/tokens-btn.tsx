@@ -13,6 +13,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { columns } from '@/lib/tokens/shared'
 import { useState } from "react";
 import { ChainList } from "@/config/constant";
+import va from '@vercel/analytics';
 
 function addExplorerLinkToToken(tokens: Token[], explorerContract: string): TokenWithLink[] {
     return tokens.map(token => {
@@ -66,7 +67,7 @@ async function getTokens(chainName: string, explorerContract: string) {
 }
 
 function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
-    const [tokens, setTokens] = useState<Token[]>([]);
+    const [tokens, setTokens] = useState<TokenWithLink[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -83,7 +84,9 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button>
+                <Button
+                    onClick={() => va.track('TokensBtnClicked', { chainName: selectedChain.name })}
+                >
                     <Coins width={20} height={20} />
                     Tokens
                 </Button>
@@ -95,7 +98,11 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
                     </DialogTitle>
                 </DialogHeader>
                 <div className="overflow-x-auto">
-                    <DataTable columns={columns} data={tokens} hiddenFields={{ 'name': false }} />
+                    <DataTable
+                        columns={columns}
+                        data={tokens}
+                        hiddenFields={{ 'name': false }}
+                    />
                 </div>
             </DialogContent>
         </Dialog>

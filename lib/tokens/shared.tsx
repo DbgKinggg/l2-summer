@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Token, TokenWithLink } from "@/config/type";
+import { TokenWithLink } from "@/config/type";
 import Image from "next/image";
 import { Copy, Twitter, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
+import va from '@vercel/analytics';
 
 const columns: ColumnDef<TokenWithLink>[] = [
   {
@@ -64,6 +65,15 @@ const columns: ColumnDef<TokenWithLink>[] = [
                 <Link className="my-auto"
                   href={token.explorer_contract}
                   target="_blank"
+                  onClick={() => {
+                    va.track('ContractAddressClicked',
+                      {
+                        token: token.name,
+                        symbol: token.symbol,
+                        address: token.address
+                      }
+                    )
+                  }}
                 >
                   {truncatedAddress}
                 </Link>
@@ -82,6 +92,13 @@ const columns: ColumnDef<TokenWithLink>[] = [
                     toast({
                       title: 'Contract address copied!'
                     });
+                    va.track('CopyContractAddressClicked',
+                      {
+                        token: token.name,
+                        symbol: token.symbol,
+                        address: token.address
+                      }
+                    )
                   }}
                 >
                   <Copy className="w-4 h-4" />
@@ -109,6 +126,15 @@ const columns: ColumnDef<TokenWithLink>[] = [
                 <Link
                   href={`https://twitter.com/${token.twitter_handle}`}
                   target="_blank"
+                  onClick={() => {
+                    va.track('TokenTwitterClicked',
+                      {
+                        token: token.name,
+                        symbol: token.symbol,
+                        address: token.address
+                      }
+                    )
+                  }}
                 >
                   <Twitter className="w-4 h-4" />
                 </Link>
@@ -119,14 +145,9 @@ const columns: ColumnDef<TokenWithLink>[] = [
             token.website.length > 0 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant={"default"} size={"sm"} asChild>
-                    <Link
-                      href={`https://twitter.com/${token.twitter_handle}`}
-                      target="_blank"
-                    >
-                      <LinkIcon className="w-4 h-4 mr-1" />
-                      Website
-                    </Link>
+                  <Button variant={"default"} size={"sm"}>
+                    <LinkIcon className="w-4 h-4 mr-1" />
+                    Website
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -136,6 +157,15 @@ const columns: ColumnDef<TokenWithLink>[] = [
                         <Link
                           href={website.url}
                           target="_blank"
+                          onClick={() => {
+                            va.track('TokenWebsiteClicked', {
+                              token: token.name,
+                              symbol: token.symbol,
+                              address: token.address,
+                              website: website.name,
+                              websiteUrl: website.url
+                            })
+                          }}
                         >
                           {website.name}
                         </Link>
