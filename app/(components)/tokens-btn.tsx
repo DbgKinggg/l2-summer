@@ -91,7 +91,7 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
                     Tokens
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl md:max-h-[75vh] overflow-y-auto">
+            <DialogContent className="max-w-4xl max-h-[90vh] md:max-h-[75vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>
                         Tokens on&nbsp;<strong>{selectedChain.name}</strong>
