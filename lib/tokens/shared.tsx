@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { copyToClipboard } from "../utils";
+import { copyToClipboard, truncateMiddle } from "../utils";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import {
@@ -54,10 +54,11 @@ const columns: ColumnDef<Token>[] = [
       const token = row.original;
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { toast } = useToast();
+      const truncatedAddress = truncateMiddle(token.address, 8, 8);
 
       return (
         <div className="text-xs flex gap-x-1">
-          <span className="my-auto">{token.address}</span>
+          <span className="my-auto">{truncatedAddress}</span>
           <TooltipProvider delayDuration={3}>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -87,7 +88,7 @@ const columns: ColumnDef<Token>[] = [
       const token = row.original;
 
       return (
-        <div className="flex gap-x-1">
+        <div className="flex gap-x-1 justify-end">
           {
             token.twitter_handle && (
               <Button variant={"default"} size={"sm"} asChild>

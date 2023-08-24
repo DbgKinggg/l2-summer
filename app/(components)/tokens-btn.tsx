@@ -23,6 +23,30 @@ async function getTokens(chainName: string) {
         return (await import('../../lib/tokens/arbitrum')).tokens;
     }
 
+    if (chainName === ChainList.OPTIMISM) {
+        return (await import('../../lib/tokens/optimism')).tokens;
+    }
+
+    if (chainName === ChainList.POLYGON) {
+        return (await import('../../lib/tokens/polygon')).tokens;
+    }
+
+    if (chainName === ChainList.POLYGON_ZKEVM) {
+        return (await import('../../lib/tokens/polygon-zkevm')).tokens;
+    }
+
+    if (chainName === ChainList.ZKSYNC) {
+        return (await import('../../lib/tokens/zksync-era')).tokens;
+    }
+
+    if (chainName === ChainList.STARKNET) {
+        return (await import('../../lib/tokens/starknet')).tokens;
+    }
+
+    if (chainName === ChainList.LINEA) {
+        return (await import('../../lib/tokens/linea')).tokens;
+    }
+
     return [];
 }
 
