@@ -103,14 +103,6 @@ const tokens: Token[] = [
     image_file_name: "btc.png",
   },
   {
-    name: "Wrapped BTC",
-    symbol: "WBTC",
-    address: "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f",
-    twitter_handle: null,
-    website: [],
-    image_file_name: "btc.png",
-  },
-  {
     name: "StarkGate: wstETH",
     symbol: "wstETH",
     address:
