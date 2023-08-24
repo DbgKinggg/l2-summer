@@ -110,8 +110,7 @@ const columns: ColumnDef<TokenWithLink>[] = [
                   href={`https://twitter.com/${token.twitter_handle}`}
                   target="_blank"
                 >
-                  <Twitter className="w-4 h-4 mr-1" />
-                  Twitter
+                  <Twitter className="w-4 h-4" />
                 </Link>
               </Button>
             )
