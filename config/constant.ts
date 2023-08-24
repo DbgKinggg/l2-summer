@@ -38,6 +38,7 @@ const chains: Chain[] = [
     },
     website: "https://base.org",
     explorer: "https://base.blockscout.com",
+    explorer_contract: "https://base.blockscout.com/token/",
     github: "https://github.com/base-org",
     bridge: "https://bridge.base.org",
     colors: {
@@ -57,6 +58,7 @@ const chains: Chain[] = [
     },
     website: "https://www.optimism.io",
     explorer: "https://optimistic.etherscan.io",
+    explorer_contract: "https://optimistic.etherscan.io/token/",
     github: "https://github.com/ethereum-optimism",
     bridge: "https://app.optimism.io/bridge",
     colors: {
@@ -76,6 +78,7 @@ const chains: Chain[] = [
     },
     website: "https://arbitrum.foundation",
     explorer: "https://arbiscan.io",
+    explorer_contract: "https://arbiscan.io/token/",
     github: "https://github.com/OffchainLabs",
     bridge: "https://bridge.arbitrum.io",
     colors: {
@@ -95,6 +98,7 @@ const chains: Chain[] = [
     },
     website: "https://polygon.technology/polygon-pos",
     explorer: "https://polygonscan.com/",
+    explorer_contract: "https://polygonscan.com/token/",
     github: "https://github.com/maticnetwork",
     bridge: "https://wallet.polygon.technology/polygon/bridge",
     colors: {
@@ -114,6 +118,7 @@ const chains: Chain[] = [
     },
     website: "https://polygon.technology/polygon-zkevm",
     explorer: "https://zkevm.polygonscan.com/",
+    explorer_contract: "https://zkevm.polygonscan.com/token/",
     github: "https://github.com/maticnetwork",
     bridge: "https://wallet.polygon.technology/zkEVM-Bridge/bridge",
     colors: {
@@ -133,6 +138,7 @@ const chains: Chain[] = [
     },
     website: "https://zksync.io",
     explorer: "https://explorer.zksync.io",
+    explorer_contract: "https://explorer.zksync.io/address/",
     github: "https://github.com/matter-labs",
     bridge: "https://portal.zksync.io/bridge",
     colors: {
@@ -152,6 +158,7 @@ const chains: Chain[] = [
     },
     website: "https://www.starknet.io",
     explorer: "https://starkscan.co",
+    explorer_contract: "https://starkscan.co/token/",
     github: "https://github.com/starknet-io",
     bridge: "https://starkgate.starknet.io",
     colors: {
@@ -171,6 +178,7 @@ const chains: Chain[] = [
     },
     website: "https://linea.build",
     explorer: "https://explorer.linea.build",
+    explorer_contract: "https://explorer.linea.build/token/",
     github: "https://github.com/Consensys",
     bridge: "https://bridge.linea.build",
     colors: {

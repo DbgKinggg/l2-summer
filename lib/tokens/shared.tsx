@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Token } from "@/config/type";
+import { Token, TokenWithLink } from "@/config/type";
 import Image from "next/image";
 import { Copy, Twitter, Link as LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const columns: ColumnDef<Token>[] = [
+const columns: ColumnDef<TokenWithLink>[] = [
   {
     header: "Token",
     accessorKey: 'symbol',
@@ -58,7 +58,21 @@ const columns: ColumnDef<Token>[] = [
 
       return (
         <div className="text-xs flex gap-x-1">
-          <span className="my-auto">{truncatedAddress}</span>
+          <TooltipProvider delayDuration={3}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link className="my-auto"
+                  href={token.explorer_contract}
+                  target="_blank"
+                >
+                  {truncatedAddress}
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Open on Explorer</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
           <TooltipProvider delayDuration={3}>
             <Tooltip>
               <TooltipTrigger asChild>

@@ -7,14 +7,23 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Chain, Token } from "@/config/type";
+import { Chain, Token, TokenWithLink } from "@/config/type";
 import { useEffect } from "react";
 import { DataTable } from "@/components/shared/data-table";
 import { columns } from '@/lib/tokens/shared'
 import { useState } from "react";
 import { ChainList } from "@/config/constant";
 
-async function getTokens(chainName: string) {
+function addExplorerLinkToToken(tokens: Token[], explorerContract: string): TokenWithLink[] {
+    return tokens.map(token => {
+        return {
+            ...token,
+            explorer_contract: explorerContract + token.address,
+        };
+    });
+}
+
+async function getTokensFromFile(chainName: string) {
     if (chainName === ChainList.BASE) {
         return (await import('../../lib/tokens/base')).tokens;
     }
@@ -50,13 +59,19 @@ async function getTokens(chainName: string) {
     return [];
 }
 
+async function getTokens(chainName: string, explorerContract: string) {
+    const tokens = await getTokensFromFile(chainName);
+
+    return addExplorerLinkToToken(tokens, explorerContract);
+}
+
 function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
     const [tokens, setTokens] = useState<Token[]>([]);
 
     useEffect(() => {
         (async () => {
             try {
-                const tokens = await getTokens(selectedChain.name);
+                const tokens = await getTokens(selectedChain.name, selectedChain.explorer_contract);
 
                 setTokens(tokens);
             } catch (err) {

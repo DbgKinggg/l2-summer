@@ -69,7 +69,7 @@ const tokens: Token[] = [
   {
     name: "1Inch",
     symbol: "1INCH",
-    address: "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    address: "0x9c2c5fd7b07e95ee044ddeba0e97a665f142394f",
     twitter_handle: "1inch",
     website: [
       {

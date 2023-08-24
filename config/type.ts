@@ -11,6 +11,7 @@ export type Chain = {
   twitter: Twitter;
   website: string;
   explorer: string;
+  explorer_contract: string;
   github: string;
   bridge: string;
   colors: {
@@ -31,4 +32,17 @@ export type Token = {
   twitter_handle: string | null;
   image_file_name: string;
   address: string;
+};
+
+export type TokenWithLink = {
+  symbol: string;
+  name: string;
+  website: {
+    name: string;
+    url: string;
+  }[];
+  twitter_handle: string | null;
+  image_file_name: string;
+  address: string;
+  explorer_contract: string;
 };
