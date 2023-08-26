@@ -17,6 +17,7 @@ import { motion, Variants } from 'framer-motion'
 import va from '@vercel/analytics';
 import TokensBtn from './(components)/tokens-btn';
 import DAppBtn from './(components)/dapp-btn';
+import { DAppList } from './(components)/dapps-list';
 
 export default function Home() {
   const [selectedChain, setSelectedChain] = useState<Chain>(chains[0])
@@ -48,6 +49,7 @@ export default function Home() {
               chainList={chainList}
             />
           </ClientOnly>
+          <DAppList selectedChain={selectedChain} />
           <a
             href="https://www.producthunt.com/posts/layer-2-summer?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-layer&#0045;2&#0045;summer" target="_blank">
             <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=410576&theme=light" alt="Layer&#0032;2&#0032;Summer - Layer&#0032;2&#0032;summer&#0032;is&#0032;place&#0032;for&#0032;layer&#0032;2&#0032;blockchains | Product Hunt"

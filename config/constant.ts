@@ -190,4 +190,14 @@ const chains: Chain[] = [
   },
 ];
 
-export {chains};
+enum DappCategory {
+  DEFI = "DeFi",
+  NFT = "NFT",
+  GAMES = "Games",
+  LENDING = "Lending",
+  DEX = "DEX",
+  WALLET = "Wallet",
+  OTHERS = "Others",
+}
+
+export {chains, DappCategory};

@@ -1,4 +1,5 @@
 import {Chain as ChainType} from "wagmi";
+import {DappCategory} from "./constant";
 
 type Twitter = {
   handle: string;
@@ -45,4 +46,12 @@ export type TokenWithLink = {
   image_file_name: string;
   address: string;
   explorer_contract: string;
+};
+
+export type Dapp = {
+  name: string;
+  url: string;
+  image_url: string;
+  categories: DappCategory[];
+  description: string;
 };

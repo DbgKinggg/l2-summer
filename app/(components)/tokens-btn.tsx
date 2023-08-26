@@ -14,6 +14,7 @@ import { columns } from '@/lib/tokens/shared'
 import { useState } from "react";
 import { ChainList } from "@/config/constant";
 import va from '@vercel/analytics';
+import { useToast } from "@/components/ui/use-toast";
 
 function addExplorerLinkToToken(tokens: Token[], explorerContract: string): TokenWithLink[] {
     return tokens.map(token => {
@@ -68,6 +69,7 @@ async function getTokens(chainName: string, explorerContract: string) {
 
 function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
     const [tokens, setTokens] = useState<TokenWithLink[]>([]);
+    const { toast } = useToast();
 
     useEffect(() => {
         (async () => {
@@ -76,7 +78,11 @@ function TokensBtn({ selectedChain }: { selectedChain: Chain }) {
 
                 setTokens(tokens);
             } catch (err) {
-                console.log('Error occured when fetching books');
+                toast({
+                    title: 'Error occurred when fetching tokens',
+                    description: 'Please try again later',
+                    variant: `destructive`
+                });
             }
         })();
     }, []);
