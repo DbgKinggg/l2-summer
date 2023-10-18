@@ -26,6 +26,10 @@ async function getDAppsFromFile(chainName: string) {
         return (await import('../../lib/dapps/base')).dapps;
     }
 
+    if (chainName === ChainList.SCROLL) {
+        return (await import('../../lib/dapps/scroll')).dapps;
+    }
+
     return [];
 }
 

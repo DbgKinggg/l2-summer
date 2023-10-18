@@ -14,9 +14,13 @@ import {
   zkSync,
   zkSyncTestnet,
   lineaTestnet,
+  scroll,
+  scrollSepolia,
+  scrollTestnet,
 } from "viem/chains";
 
 export enum ChainList {
+  SCROLL = "Scroll",
   BASE = "Base",
   OPTIMISM = "Optimism",
   ARBITRUM = "Arbitrum",
@@ -28,6 +32,26 @@ export enum ChainList {
 }
 
 const chains: Chain[] = [
+  {
+    name: ChainList.SCROLL,
+    description:
+      "Scroll seamlessly extends Ethereum’s capabilities through zero knowledge tech and EVM compatibility.",
+    twitter: {
+      handle: "Scroll_ZKP",
+      url: "https://twitter.com/Scroll_ZKP",
+    },
+    website: "https://scroll.io/",
+    explorer: "https://scrollscan.com",
+    explorer_contract: "https://scrollscan.com/token/",
+    github: "https://github.com/scroll-tech",
+    bridge: "https://scroll.io/bridge",
+    colors: {
+      background: "#ffdab0",
+      text: "white",
+    },
+    icon: "scroll-icon.png",
+    chains: [scroll, scrollSepolia, scrollTestnet],
+  },
   {
     name: ChainList.BASE,
     description:
@@ -192,6 +216,7 @@ const chains: Chain[] = [
 
 enum DappCategory {
   DEFI = "DeFi",
+  INFRASTRUCTURE = "Infrastructure",
   NFT = "NFT",
   GAMES = "Games",
   LENDING = "Lending",
