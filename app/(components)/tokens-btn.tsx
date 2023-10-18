@@ -26,6 +26,10 @@ function addExplorerLinkToToken(tokens: Token[], explorerContract: string): Toke
 }
 
 async function getTokensFromFile(chainName: string) {
+    if (chainName === ChainList.SCROLL) {
+        return (await import('../../lib/tokens/scroll')).tokens;
+    }
+
     if (chainName === ChainList.BASE) {
         return (await import('../../lib/tokens/base')).tokens;
     }
