@@ -16,7 +16,6 @@ import Footer from '@/components/base/footer';
 import { motion, Variants } from 'framer-motion'
 import va from '@vercel/analytics';
 import TokensBtn from './(components)/tokens-btn';
-import DAppBtn from './(components)/dapp-btn';
 import { HomeDAppList } from './(components)/home-dapps-list';
 
 export default function Home() {
@@ -161,7 +160,6 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
             <AddNetworkBtn chain={selectedChain} />
             <TokensBtn selectedChain={selectedChain} />
           </ClientOnly>
-          <DAppBtn />
         </div>
       </div>
     </section >
