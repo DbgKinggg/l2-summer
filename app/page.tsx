@@ -151,7 +151,11 @@ function ChainInfo({ selectedChain }: { selectedChain: Chain }) {
         <ul>
           <SocialLink url={selectedChain.website} label={`Website`} icon={<Cable className="w-8 h-8" />} />
           <SocialLink url={selectedChain.explorer} label={`Explorer`} icon={<ExternalLink className="w-8 h-8" />} />
-          <SocialLink url={selectedChain.github} label={`Github`} icon={<Github className="w-8 h-8" />} />
+          {
+            selectedChain.github && (
+              <SocialLink url={selectedChain.github} label={`Github`} icon={<Github className="w-8 h-8" />} />
+            )
+          }
           <SocialLink url={selectedChain.bridge} label={`Bridge`} icon={<ArrowRightLeft className="w-8 h-8" />} />
           <SocialLink url={selectedChain.twitter.url} label={'@' + selectedChain.twitter.handle} icon={<Twitter className="w-8 h-8" />} />
         </ul>

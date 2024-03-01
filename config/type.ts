@@ -13,7 +13,7 @@ export type Chain = {
   website: string;
   explorer: string;
   explorer_contract: string;
-  github: string;
+  github: string | null;
   bridge: string;
   colors: {
     background: string;
