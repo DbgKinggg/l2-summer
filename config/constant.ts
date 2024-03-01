@@ -106,7 +106,7 @@ const chains: Chain[] = [
     github: null,
     bridge: "https://blast.io/en/bridge",
     colors: {
-      background: "#12150d",
+      background: "#000000",
       text: "#fcfb04",
     },
     icon: "blast.png",
