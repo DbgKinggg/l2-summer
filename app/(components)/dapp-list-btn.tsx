@@ -22,6 +22,10 @@ async function getDApps(chainName: string) {
 }
 
 async function getDAppsFromFile(chainName: string) {
+    if (chainName === ChainList.BLAST) {
+        return (await import('../../lib/dapps/blast')).dapps;
+    }
+
     if (chainName === ChainList.BASE) {
         return (await import('../../lib/dapps/base')).dapps;
     }

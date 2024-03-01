@@ -302,6 +302,12 @@ enum DappCategory {
   LENDING = "Lending",
   DEX = "DEX",
   WALLET = "Wallet",
+  PROTOCOL = "Protocol",
+  API = "API",
+  GAME = "Game",
+  TRADING = "Trading",
+  MEME = "MEME",
+  BOT = "Bot",
   OTHERS = "Others",
 }
 
